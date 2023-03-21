@@ -175,7 +175,14 @@ public class CartTest {
             previousIndex = randomIndex;
             clickedButtons.add(addCartButton);
         }
-
+        WebElement cartIcon = driver.findElement(By.cssSelector("a.shopping_cart_link>span"));
+        System.out.println(cartIcon.getText());
+        String expectedCartNumber = "2";
+        Assert.assertEquals(expectedCartNumber, cartIcon.getText());
+        if (cartIcon.isDisplayed()) {
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+            jsExecutor.executeScript("arguments[0].style.border = '3px solid blue';", cartIcon);
+        }
         }
     }
 
