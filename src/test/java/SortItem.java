@@ -17,6 +17,7 @@ import java.util.*;
 public class SortItem {
     WebDriver driver;
     private String testName;
+
     @Before
     //Otwieranie, maxmalizowanie przeglądarki i przechodzenie do wybranej strony.
     //przed każdym rozpoczęciem testu
@@ -59,7 +60,7 @@ public class SortItem {
             String priceString = priceElement.getText().replace("$", "");
             double price = Double.parseDouble(priceString);
             prices.add(price);
-         }
+        }
         List<Double> sortedPrices = new ArrayList<>(prices);
         Collections.sort(sortedPrices);
         System.out.println(prices);
@@ -74,13 +75,17 @@ public class SortItem {
         testName = "sortItemPriceHighToLow";
         Select sortItemHiLo = new Select(driver.findElement(By.cssSelector(".product_sort_container")));
         sortItemHiLo.selectByValue("hilo");
+        //tworzenie listy
         List<WebElement> priceElements = driver.findElements(By.className("inventory_item_price"));
         List<Double> prices = new ArrayList<>();
+        //tworzenie listy, usuwanie znaków str i zamiana na liczby typu double
         for (WebElement priceElement : priceElements) {
             String priceString = priceElement.getText().replace("$", "");
             double price = Double.parseDouble(priceString);
             prices.add(price);
         }
+
+        //sortowanie
         List<Double> sortedPrices = new ArrayList<>(prices);
         Collections.sort(sortedPrices, Collections.reverseOrder());
         System.out.println(prices);
@@ -91,43 +96,63 @@ public class SortItem {
 
     @Test
     public void sortItemNameAtoZ() {
-        //sotruje po nazwie od A do Z
         testName = "sortItemNameAtoZ";
         Select sortItemNameAtoZ = new Select(driver.findElement(By.cssSelector(".product_sort_container")));
         sortItemNameAtoZ.selectByValue("az");
+        //wyszukiwanie i tworzenie listy
         List<WebElement> itemNames = driver.findElements(By.className("inventory_item_name"));
-        List<Double> items = new ArrayList<>();
+        List<String> items = new ArrayList<>();
         for (WebElement itemName : itemNames) {
             String itemString = itemName.getText().replace(" ", "");
-            System.out.println(itemString);
-
-            //double item = Double.parseDouble(itemString);
-            //items.add(item);
-            //double item = Double.parseDouble(itemNameString);
-            //prices.add(item);
-            //System.out.println(item);
+            items.add(itemString);
         }
+        // sortowanie stworzonej listy
+        items.sort(String.CASE_INSENSITIVE_ORDER);
+
+        for (String item : items) {
+            System.out.println(item);
+        }
+        //sprawdzanie czy oryginalna lista elementów jest równa posortowanej liście
+        List<String> originalItems = new ArrayList<>();
+        for (WebElement itemName : itemNames) {
+            String itemString = itemName.getText().replace(" ", "");
+            originalItems.add(itemString);
+        }
+        Assert.assertEquals(originalItems, items);
 
     }
+
 
     @Test
     public void sortItemNameZtoA() {
-        //sortuje po nazwie od Z do A
-        testName = "sortItemNameZtoA";
-        Select sortItemNameAtoZ = new Select(driver.findElement(By.cssSelector(".product_sort_container")));
-        sortItemNameAtoZ.selectByValue("za");
+        //sortowanie na stronie od Z do A
+        Select sortItemNameZtoA = new Select(driver.findElement(By.cssSelector(".product_sort_container")));
+        sortItemNameZtoA.selectByValue("za");
+        // tworznie listy elementów
         List<WebElement> itemNames = driver.findElements(By.className("inventory_item_name"));
-        List<Double> items = new ArrayList<>();
+        // tworzenie listę stringów z tekstami elementów
+        List<String> items = new ArrayList<>();
         for (WebElement itemName : itemNames) {
-            String itemNameString = itemName.getText().replace(" ", "");
-            System.out.println(itemNameString);
-            //double item = Double.parseDouble(itemNameString);
-            //prices.add(item);
-            //System.out.println(item);
+            String itemString = itemName.getText().replace(" ", "");
+            items.add(itemString);
+        }
+        //sortowanie listy od Z do A
+        Collections.sort(items, Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER));
+        //wyświetlanie posortowanej listy
+        for (String item : items) {
+            System.out.println(item);
         }
 
+        //sprawdzanie czy oryginalna lista elementów jest równa posortowanej liście
+        List<String> originalItems = new ArrayList<>();
+        for (WebElement itemName : itemNames) {
+            String itemString = itemName.getText().replace(" ", "");
+            originalItems.add(itemString);
+        }
+        Assert.assertEquals(originalItems, items);
     }
 }
+
 
 
 
