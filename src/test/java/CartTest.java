@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -153,14 +154,32 @@ public class CartTest {
         System.out.println(addCartButton);
     }
 
-//    @Test
-//    public void idButtons() {
-//        List<WebElement> addCartButtons1 = driver.findElements(By.cssSelector("div.inventory_container button"));
-//        for (WebElement button : addCartButtons1) {
-//            System.out.println(button.getAttribute("id"));
-//        }
-//    }
 
-}
+    @Test
+    public void randomAddCartButtons() {
+        //test wybiera losowy przycisk add to cart i go klika
+        testName = "randomAddCartButtons";
+        //wyszukiwanie listy elementów
+        List<WebElement> addCartButtons = driver.findElements(By.cssSelector("div.inventory_container button"));
+        //losowanie przycisków z listy
+        Random rand = new Random();
+        int previousIndex = -1;
+        List<WebElement> clickedButtons = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            int randomIndex = rand.nextInt(addCartButtons.size());
+            while (randomIndex == previousIndex) {
+                randomIndex = rand.nextInt(addCartButtons.size());
+            }
+            WebElement addCartButton = addCartButtons.get(randomIndex);
+            addCartButton.click();
+            previousIndex = randomIndex;
+            clickedButtons.add(addCartButton);
+        }
+
+        }
+    }
+
+
+
 
 
