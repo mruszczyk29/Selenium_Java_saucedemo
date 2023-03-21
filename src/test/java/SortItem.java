@@ -125,6 +125,7 @@ public class SortItem {
 
     @Test
     public void sortItemNameZtoA() {
+        testName = "sortItemNameZtoA";
         //sortowanie na stronie od Z do A
         Select sortItemNameZtoA = new Select(driver.findElement(By.cssSelector(".product_sort_container")));
         sortItemNameZtoA.selectByValue("za");
