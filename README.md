@@ -1,6 +1,6 @@
 # Testy Automatyczne dla Saucedemo.com
 
-Ten projekt mały zawiera zestaw testów automatycznych, które zostały napisane w języku Java z wykorzystaniem frameworka Selenium. Testy mają na celu sprawdzenie funkcjonalności strony internetowej Saucedemo.com, która jest platformą e-commerce sprzedająca różne produkty.
+Ten mały projekt zawiera zestaw testów automatycznych, które zostały napisane w języku Java z wykorzystaniem frameworka Selenium. Testy mają na celu sprawdzenie funkcjonalności strony internetowej Saucedemo.com, która jest platformą e-commerce sprzedająca różne produkty.
 
 # Opis testów
 
